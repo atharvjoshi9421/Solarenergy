@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solaris India - Product Catalog</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <style>
+        /* --- CSS STYLES --- */
+        :root {
+            --primary: #FF9933; /* Saffron/Solar Orange for Indian touch */
+            --accent: #138808;  /* Green for eco/friendly */
+            --dark-bg: #0f172a; /* Deep Navy/Black */
+            --card-bg: #1e293b;
+            --text-light: #f8fafc;
+            --text-gray: #94a3b8;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+        body { 
+            background-color: var(--dark-bg); 
+            color: var(--text-light); 
+            min-height: 200vh; /* Ensures scroll space for demo */
+            overflow-x: hidden;
+        }
+        
+        
+        /* =========================================
+           NEW STYLES: NAVBAR & PAGE HEADER
+           ========================================= */
+        
+        /* Navbar Styles */
+        .navbar {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 15px 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-menu li a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu li a:hover {
+            color: var(--primary-green);
+        }
+
+        /* Mobile Menu Icon (Hidden on desktop) */
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Page Title Header Styles */
+        .page-header {
+            background-color:black; /* Light grey background */
+            padding: 60px 0;
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Responsive for Nav */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none; /* Simple hide for mobile for now */
+            }
+            .menu-toggle {
+                display: block;
+            }
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+        }
+
+
+        /* Spacer just for this demo */
+        .spacer { height: 15vh; display: flex; align-items: center; justify-content: center; opacity: 0.5; font-size: 0.9rem; letter-spacing: 2px;}
+
+        /* Section Container */
+        .products-section {
+            padding: 80px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header Styles */
+        .section-header { text-align: center; margin-bottom: 70px; }
+        .section-header h2 {
+            font-size: 3.5rem; 
+            margin-bottom: 15px;
+            background: linear-gradient(to right, #fff, var(--primary));
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+        .section-header p { 
+            color: var(--text-gray); 
+            font-size: 1.2rem; 
+            max-width: 600px; 
+            margin: 0 auto; 
+        }
+
+        /* Grid System */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        /* Product Card */
+        .product-card {
+            background: var(--card-bg);
+            border: 1px solid #334155;
+            border-radius: 16px;
+            padding: 25px;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Hover Effects */
+        .product-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px -10px rgba(255, 153, 51, 0.15);
+        }
+
+        /* Card Image Area */
+        .card-image {
+            width: 100%; 
+            height: 180px; 
+            background: #0f172a;
+            border-radius: 12px; 
+            margin-bottom: 20px;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            font-size: 3.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Decorative Background Blob */
+        .card-image::after {
+            content: '';
+            position: absolute;
+            width: 80px; height: 80px;
+            background: var(--primary);
+            filter: blur(40px);
+            opacity: 0.2;
+            transition: 0.5s;
+        }
+        .product-card:hover .card-image::after {
+            opacity: 0.4;
+            width: 120px; height: 120px;
+        }
+        
+        /* Badges */
+        .badge {
+            position: absolute; top: 15px; right: 15px;
+            background: var(--accent); color: #fff;
+            padding: 4px 12px; border-radius: 20px;
+            font-size: 0.7rem; font-weight: 600; 
+            text-transform: uppercase; letter-spacing: 0.5px;
+            z-index: 2;
+        }
+        .badge.hot { background: #ef4444; } /* Red for hot items */
+
+        /* Text Content */
+        .product-card h3 { 
+            font-size: 1.25rem; 
+            margin-bottom: 5px; 
+            color: #fff; 
+            font-weight: 600;
+        }
+        
+        .category-tag {
+            font-size: 0.8rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .product-card p { 
+            color: var(--text-gray); 
+            font-size: 0.9rem; 
+            line-height: 1.5; 
+            margin-bottom: 20px; 
+            flex-grow: 1; 
+        }
+
+        /* Price Section */
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #334155;
+            padding-top: 15px;
+            margin-top: auto;
+        }
+
+        .price {
+            font-size: 1.3rem; 
+            color: var(--text-light); 
+            font-weight: 700;
+        }
+        
+        .price span {
+            font-size: 0.8rem;
+            color: var(--text-gray);
+            font-weight: 400;
+        }
+
+        /* Status Dot */
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.8rem;
+            color: var(--accent);
+        }
+        .status-dot {
+            width: 8px; height: 8px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 5px var(--accent);
+        }
+
+        
+        /* ============================================
+   GLOBAL FOOTER STYLES
+   ============================================ */
+.global-footer {
+    background-color: #1a1a1a; /* Your dark theme color */
+    color: #FDF6E8; /* Your light text color */
+    padding: 80px 0 30px;
+    position: relative;
+    z-index: 20;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.footer-grid-layout {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+    gap: 50px;
+    margin-bottom: 60px;
+}
+
+/* Brand Column */
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #EFCEAD; /* Your Gold Accent */
+}
+
+.logo-icon-small {
+    width: 20px;
+    height: 20px;
+    background: #EFCEAD;
+    border-radius: 50%;
+    position: relative;
+}
+
+.footer-about {
+    color: rgba(255,255,255,0.6);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 30px;
+    max-width: 350px;
+}
+
+/* Headings */
+.footer-col h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: #fff;
+    margin-bottom: 25px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.footer-col h4::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 40px;
+    height: 2px;
+    background: #EFCEAD;
+}
+
+/* Links List */
+.footer-list {
+    list-style: none;
+}
+
+.footer-list li {
+    margin-bottom: 15px;
+}
+
+.footer-list a {
+    text-decoration: none;
+    color: rgba(255,255,255,0.7);
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.footer-list a:hover {
+    color: #EFCEAD;
+    transform: translateX(5px);
+}
+
+/* Contact Info */
+.contact-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 20px;
+    color: rgba(255,255,255,0.7);
+    font-size: 0.95rem;
+}
+
+.contact-row .icon {
+    color: #EFCEAD;
+}
+
+.contact-row a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.contact-row a:hover {
+    color: #EFCEAD;
+}
+
+/* Social Icons */
+.social-links {
+    display: flex;
+    gap: 15px;
+}
+
+.social-links a {
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+}
+
+.social-links a:hover {
+    background: #EFCEAD;
+    color: #1a1a1a;
+    border-color: #EFCEAD;
+}
+
+/* Bottom Bar */
+.footer-bottom-bar {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    color: rgba(255,255,255,0.4);
+    font-size: 0.85rem;
+}
+
+/* Responsive Footer */
+@media (max-width: 900px) {
+    .footer-grid-layout {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .footer-grid-layout {
+        grid-template-columns: 1fr;
+    }
+    .footer-bottom-bar {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+}
+    </style>
+</head>
+<body>
+    
+     <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">Windore</a>
+            <ul class="nav-menu">
+                <li><a href="solar.html">Home</a></li>
+                <li><a href="aboutus.html">Gallery</a></li>
+                <li><a href="gallery.html">Product</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+     <div class="page-header">
+        <div class="container">
+            <h1>PRODUCT</h1>
+        </div>
+    </div>
+
+    <section class="products-section">
+        <div class="section-header">
+            <h2 class="anim-title">Premium Solar Catalog</h2>
+            <p class="anim-title">Authorized distributor for top-tier solar equipment in India. BIS Certified products for residential and commercial use.</p>
+        </div>
+
+        <div class="product-grid">
+            
+            <div class="product-card">
+                <span class="badge">Best Seller</span>
+                <div class="card-image">☀️</div>
+                <span class="category-tag">Solar Panels</span>
+                <h3>Mono PERC 550W</h3>
+                <p>High-efficiency half-cut cell technology. Perfect for Indian rooftops with limited space.</p>
+                <div class="price-row">
+                    <div class="price">₹22,000 <span>/ unit</span></div>
+                    <div class="status"><div class="status-dot"></div> In Stock</div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <span class="badge">Trending</span>
+                <div class="card-image">🌤️</div>
+                <span class="category-tag">Solar Panels</span>
+                <h3>Bifacial Dual-Glass</h3>
+                <p>Captures sunlight from both sides. Up to 30% more generation yield.</p>
+                <div class="price-row">
+                    <div class="price">₹28,500 <span>/ unit</span></div>
+                    <div class="status"><div class="status-dot"></div> In Stock</div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <span class="badge hot">Hot Deal</span>
+                <div class="card-image">⚡</div>
+                <span class="category-tag">Inverters</span>
+                <h3>Hybrid Inverter 5kW</h3>
+                <p>Smart inverter that manages grid, solar, and battery. Wi-Fi monitoring included.</p>
+                <div class="price-row">
+                    <div class="price">₹55,000 <span>/ unit</span></div>
+                    <div class="status"><div class="status-dot"></div> In Stock</div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="card-image">🔬</div>
+                <span class="category-tag">Inverters</span>
+                <h3>Micro-Inverter IQ8</h3>
+                <p>Module-level optimization. Best for roofs with shade issues from trees.</p>
+                <div class="price-row">
+                    <div class="price">₹14,500 <span>/ unit</span></div>
+                    <div class="status"><div class="status-dot"></div> In Stock</div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <span class="badge">Long Life</span>
+                <div class="card-image">🔋</div>
+                <span class="category-tag">Batteries</span>
+                <h3>LiFePO4 Wall 5kWh</h3>
+                <p>Premium lithium battery with 6000+ cycles. 10-year warranty included.</p>
+                <div class="price-row">
+                    <div class="price">₹1,10,000 <span>/ unit</span></div>
+                    <div class="status"><div class="status-dot"></div> Pre-Order</div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="card-image">🪫</div>
+                <span class="category-tag">Batteries</span>
+                <h3>Tall Tubular 200Ah</h3>
+                <p>Heavy-duty deep cycle C10 battery. Reliable backup for frequent power cuts.</p>
+                <div class="price-row">
+                    <div class="price">₹18,500 <span>/ unit</span></div>
+                    <div class="status"><div class="status-dot"></div> In Stock</div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <span class="badge">Combo</span>
+                <div class="card-image">🏠</div>
+                <span class="category-tag">Solar Kits</span>
+                <h3>1kW Off-Grid Kit</h3>
+                <p>Complete set: Panels, Inverter, and Battery. Ideal for farmhouses.</p>
+                <div class="price-row">
+                    <div class="price">₹85,000 <span>/ kit</span></div>
+                    <div class="status"><div class="status-dot"></div> In Stock</div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="card-image">📟</div>
+                <span class="category-tag">Controllers</span>
+                <h3>MPPT Controller 60A</h3>
+                <p>99% tracking efficiency. Maximizes current from panels to battery.</p>
+                <div class="price-row">
+                    <div class="price">₹8,500 <span>/ unit</span></div>
+                    <div class="status"><div class="status-dot"></div> In Stock</div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <span class="badge">Portable</span>
+                <div class="card-image">⛺</div>
+                <span class="category-tag">Generators</span>
+                <h3>Portable Power 1000</h3>
+                <p>Carry your power anywhere. AC outlet for laptops, fans, and lights.</p>
+                <div class="price-row">
+                    <div class="price">₹42,000 <span>/ unit</span></div>
+                    <div class="status"><div class="status-dot"></div> In Stock</div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="card-image">🔩</div>
+                <span class="category-tag">Racking</span>
+                <h3>High-Rise Structure</h3>
+                <p>Galvanized iron (GI) elevated structure. Wind resistant up to 150kmph.</p>
+                <div class="price-row">
+                    <div class="price">₹4,500 <span>/ kW</span></div>
+                    <div class="status"><div class="status-dot"></div> Custom</div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <span class="badge">New</span>
+                <div class="card-image">❄️</div>
+                <span class="category-tag">Cooling</span>
+                <h3>DC Solar Fridge</h3>
+                <p>Runs directly on 12V/24V solar power. No inverter needed. 100L capacity.</p>
+                <div class="price-row">
+                    <div class="price">₹28,000 <span>/ unit</span></div>
+                    <div class="status"><div class="status-dot"></div> Low Stock</div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="card-image">📱</div>
+                <span class="category-tag">Accessories</span>
+                <h3>Smart Energy Monitor</h3>
+                <p>Track your generation and consumption in real-time via mobile app.</p>
+                <div class="price-row">
+                    <div class="price">₹12,500 <span>/ unit</span></div>
+                    <div class="status"><div class="status-dot"></div> In Stock</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="global-footer">
+    <div class="container">
+        <div class="footer-grid-layout">
+            
+            <div class="footer-col brand-col">
+                <div class="footer-logo">
+                    <div class="logo-icon-small"></div>
+                    <span>Windore</span>
+                </div>
+                <p class="footer-about">
+                    Windore is India's leading integrated solar company, dedicated to providing world-class solar solutions for homes, businesses, and government projects. Innovation meets sustainability.
+                </p>
+                  </p>
+              <div class="social-links">
+                   <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                   <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                   <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                   <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+              </div>
+            </div>
+
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul class="footer-list">
+                    <li><a href="solar.html">Home</a></li>
+                    <li><a href="aboutus.html">AboutUs</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="product.html">Product</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col contact-col">
+                <h4>Let's Connect</h4>
+                <div class="contact-row">
+                    <span class="icon">📞</span>
+                    <a href="tel:9011286060">9011286060</a>
+                </div>
+                <div class="contact-row">
+                    <span class="icon">✉️</span>
+                    <a href="mailto:info@windore.com">info@windore.com</a>
+                </div>
+                <div class="contact-row">
+                    <span class="icon">📍</span>
+                    <span>123 Windore Solar Avenue,<br>Pune, Maharashtra</span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom-bar">
+            <p>© 2025 Windore Green Energy Ltd | Privacy Policy</p>
+            <p>Designed with ⚡ for a greener future.</p>
+        </div>
+    </div>
+</section>
+
+    <script>
+        // Initialize GSAP ScrollTrigger
+        gsap.registerPlugin(ScrollTrigger);
+
+        // 1. Title Animation (Fade Up)
+        gsap.from(".anim-title", {
+            scrollTrigger: {
+                trigger: ".products-section",
+                start: "top 80%", // Starts when section top hits 80% of viewport
+            },
+            y: 50,
+            opacity: 0,
+            duration: 1,
+            stagger: 0.2,
+            ease: "power3.out"
+        });
+
+        // 2. Product Grid Staggered Animation
+        // "batch" allows new items to animate as you scroll down to them
+        ScrollTrigger.batch(".product-card", {
+            onEnter: batch => gsap.to(batch, {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                stagger: 0.1,
+                ease: "back.out(1.2)" // Subtle bounce effect
+            }),
+            start: "top 85%",
+        });
+
+        // Initial Set: Hide cards and push them down
+        gsap.set(".product-card", { y: 60, opacity: 0 });
+    </script>
+</body>
+</html>
