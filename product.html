@@ -3,36 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solaris India - Product Catalog</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <title>Renewable Energy - Windore</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* --- CSS STYLES --- */
+        /* --- Reset & Base Styles --- */
         :root {
-            --primary: #FF9933; /* Saffron/Solar Orange for Indian touch */
-            --accent: #138808;  /* Green for eco/friendly */
-            --dark-bg: #0f172a; /* Deep Navy/Black */
-            --card-bg: #1e293b;
-            --text-light: #f8fafc;
-            --text-gray: #94a3b8;
+            --primary-green: #006400;
+            --accent-green: #4CAF50;
+            --light-bg: #f4f7f6;
+            --white: #ffffff;
+            --text-dark: #333333;
+            --text-light: #666666;
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-
-        body { 
-            background-color: var(--dark-bg); 
-            color: var(--text-light); 
-            min-height: 200vh; /* Ensures scroll space for demo */
-            overflow-x: hidden;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
         }
-        
-        
-        /* =========================================
-           NEW STYLES: NAVBAR & PAGE HEADER
-           ========================================= */
-        
-        /* Navbar Styles */
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* --- Utility Class for Filtering --- */
+        .d-none {
+            display: none !important;
+        }
+
+        /* --- Navbar --- */
         .navbar {
             background-color: var(--white);
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
@@ -73,208 +78,194 @@
             transition: color 0.3s ease;
         }
 
-        .nav-menu li a:hover {
-            color: var(--primary-green);
-        }
+        .nav-menu li a:hover { color: var(--primary-green); }
+        .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; }
 
-        /* Mobile Menu Icon (Hidden on desktop) */
-        .menu-toggle {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-        
-        /* Page Title Header Styles */
-        .page-header {
-            background-color:black; /* Light grey background */
-            padding: 60px 0;
-            text-align: center;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .page-header h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            color: var(--text-dark);
-            margin: 0;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* Responsive for Nav */
-        @media (max-width: 768px) {
-            .nav-menu {
-                display: none; /* Simple hide for mobile for now */
-            }
-            .menu-toggle {
-                display: block;
-            }
-            .page-header h1 {
-                font-size: 2.2rem;
-            }
-        }
-
-
-        /* Spacer just for this demo */
-        .spacer { height: 15vh; display: flex; align-items: center; justify-content: center; opacity: 0.5; font-size: 0.9rem; letter-spacing: 2px;}
-
-        /* Section Container */
-        .products-section {
-            padding: 80px 20px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        /* Header Styles */
-        .section-header { text-align: center; margin-bottom: 70px; }
-        .section-header h2 {
-            font-size: 3.5rem; 
-            margin-bottom: 15px;
-            background: linear-gradient(to right, #fff, var(--primary));
-            -webkit-background-clip: text; 
-            -webkit-text-fill-color: transparent;
-            font-weight: 700;
-        }
-        .section-header p { 
-            color: var(--text-gray); 
-            font-size: 1.2rem; 
-            max-width: 600px; 
-            margin: 0 auto; 
-        }
-
-        /* Grid System */
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 30px;
-        }
-
-        /* Product Card */
-        .product-card {
-            background: var(--card-bg);
-            border: 1px solid #334155;
-            border-radius: 16px;
-            padding: 25px;
+        /* --- Hero Section --- */
+        .hero-section {
             position: relative;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: pointer;
-            overflow: hidden;
+            height: 400px;
+              background: linear-gradient(rgba(0, 100, 0, 0.7), rgba(0, 100, 0, 0.4)), 
+                        url('product page hero section.jpg') no-repeat center center/cover;
+            color: var(--white);
             display: flex;
-            flex-direction: column;
-        }
-
-        /* Hover Effects */
-        .product-card:hover {
-            transform: translateY(-12px) scale(1.02);
-            border-color: var(--primary);
-            box-shadow: 0 20px 40px -10px rgba(255, 153, 51, 0.15);
-        }
-
-        /* Card Image Area */
-        .card-image {
-            width: 100%; 
-            height: 180px; 
-            background: #0f172a;
-            border-radius: 12px; 
-            margin-bottom: 20px;
-            display: flex; 
-            align-items: center; 
+            align-items: center;
             justify-content: center;
-            font-size: 3.5rem;
-            position: relative;
+            text-align: center;
+        }
+
+        .hero-content {
             z-index: 1;
+            max-width: 800px;
+            padding: 20px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
-        /* Decorative Background Blob */
-        .card-image::after {
-            content: '';
-            position: absolute;
-            width: 80px; height: 80px;
-            background: var(--primary);
-            filter: blur(40px);
-            opacity: 0.2;
-            transition: 0.5s;
-        }
-        .product-card:hover .card-image::after {
-            opacity: 0.4;
-            width: 120px; height: 120px;
-        }
-        
-        /* Badges */
-        .badge {
-            position: absolute; top: 15px; right: 15px;
-            background: var(--accent); color: #fff;
-            padding: 4px 12px; border-radius: 20px;
-            font-size: 0.7rem; font-weight: 600; 
-            text-transform: uppercase; letter-spacing: 0.5px;
-            z-index: 2;
-        }
-        .badge.hot { background: #ef4444; } /* Red for hot items */
+        .hero-content h1 { font-size: 3rem; margin-bottom: 15px; }
+        .lead-text { font-size: 1.2rem; margin-bottom: 20px; font-weight: 300; }
 
-        /* Text Content */
-        .product-card h3 { 
-            font-size: 1.25rem; 
-            margin-bottom: 5px; 
-            color: #fff; 
-            font-weight: 600;
-        }
-        
-        .category-tag {
-            font-size: 0.8rem;
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-            display: block;
+        /* --- Layout --- */
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
         }
 
-        .product-card p { 
-            color: var(--text-gray); 
-            font-size: 0.9rem; 
-            line-height: 1.5; 
-            margin-bottom: 20px; 
-            flex-grow: 1; 
+        .layout-grid {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 40px;
         }
 
-        /* Price Section */
-        .price-row {
+        /* --- Sidebar (Accordion) --- */
+        .sidebar {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .sidebar-header-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-top: 1px solid #334155;
-            padding-top: 15px;
-            margin-top: auto;
+            border-bottom: 3px solid var(--accent-green);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
         }
 
-        .price {
-            font-size: 1.3rem; 
-            color: var(--text-light); 
-            font-weight: 700;
+        .sidebar h3 {
+            color: var(--primary-green);
+            font-size: 1.2rem;
+            margin: 0;
         }
-        
-        .price span {
+
+        .reset-btn {
             font-size: 0.8rem;
-            color: var(--text-gray);
-            font-weight: 400;
+            color: var(--text-light);
+            cursor: pointer;
+            text-decoration: underline;
         }
+        .reset-btn:hover { color: var(--primary-green); }
 
-        /* Status Dot */
-        .status {
+        .accordion-btn {
+            background-color: #f1f1f1;
+            color: var(--text-dark);
+            cursor: pointer;
+            padding: 12px 15px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: 0.3s;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 5px;
-            font-size: 0.8rem;
-            color: var(--accent);
-        }
-        .status-dot {
-            width: 8px; height: 8px;
-            background-color: var(--accent);
-            border-radius: 50%;
-            box-shadow: 0 0 5px var(--accent);
+            border-radius: 5px;
+            margin-bottom: 5px;
         }
 
+        .active-acc, .accordion-btn:hover {
+            background-color: #e8f5e9;
+            color: var(--primary-green);
+        }
+
+        .accordion-btn i { transition: transform 0.3s ease; font-size: 0.8rem; }
+        .active-acc i { transform: rotate(180deg); }
+
+        .panel {
+            padding: 0 15px;
+            background-color: white;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            border-left: 3px solid var(--accent-green);
+            margin-bottom: 5px;
+        }
+
+        .panel a {
+            display: block;
+            text-decoration: none;
+            color: var(--text-light);
+            padding: 8px 0;
+            font-size: 0.9rem;
+            border-bottom: 1px solid #eee;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .panel a:hover { color: var(--primary-green); padding-left: 5px; }
+        .panel a:last-child { border-bottom: none; }
+
+        /* --- Content Area --- */
+        .product-category { margin-bottom: 60px; scroll-margin-top: 100px; }
+        .section-title { color: var(--primary-green); margin-bottom: 10px; font-size: 2rem; position: relative; }
+        .section-title::after { content: ''; display: block; width: 60px; height: 4px; background: var(--accent-green); margin-top: 8px; border-radius: 2px; }
+        .section-desc { color: var(--text-light); margin-bottom: 25px; }
+
+        /* --- Cards --- */
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 25px; }
+        .product-card {
+            background: #fff; border-radius: 12px; overflow: hidden;
+            box-shadow: var(--shadow); transition: transform 0.3s; cursor: pointer;
+            border: 1px solid transparent;
+        }
+        .product-card:hover { transform: translateY(-5px); border-color: var(--accent-green); }
+        .card-image { width: 100%; height: 180px; object-fit: cover; border-bottom: 3px solid var(--accent-green); }
+        .card-info { padding: 15px; text-align: center; }
+        .product-card h3 { font-size: 1.1rem; margin-bottom: 8px; color: var(--primary-green); }
+        .view-btn {
+            background: transparent; border: 1px solid var(--accent-green); color: var(--accent-green);
+            padding: 6px 15px; border-radius: 20px; cursor: pointer; font-size: 0.85rem; font-weight: bold; transition: all 0.3s;
+        }
+        .product-card:hover .view-btn { background: var(--accent-green); color: var(--white); }
+
+        /* --- List --- */
+        .list-layout { display: flex; flex-direction: column; gap: 10px; }
+        .list-item {
+            display: flex; align-items: center; padding: 10px; background: #fff; border-radius: 8px;
+            box-shadow: var(--shadow); transition: transform 0.3s; cursor: pointer;
+        }
+        .list-item:hover { transform: translateX(5px); background: #fafafa; }
+        .list-thumb { width: 60px; height: 60px; border-radius: 6px; object-fit: cover; margin-right: 20px; }
+
+        /* --- Projects --- */
+        .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        .project-card {
+            height: 220px; border-radius: 12px; overflow: hidden; position: relative;
+            background-size: cover; background-position: center; cursor: pointer;
+        }
+        .project-overlay {
+            position: absolute; bottom: 0; left: 0; width: 100%; padding: 15px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9)); color: var(--white);
+        }
+
+        /* --- Modal --- */
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); }
+        .modal-content { background-color: #fff; margin: 5% auto; border-radius: 10px; width: 90%; max-width: 800px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); animation: slideUp 0.4s; overflow: hidden; }
+        .modal-header { background-color: var(--primary-green); color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .close-btn { color: white; font-size: 28px; cursor: pointer; }
+        .modal-body { padding: 25px; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .modal-img { width: 100%; border-radius: 8px; border: 1px solid #ddd; }
         
-        /* ============================================
+        @keyframes slideUp { from {transform: translateY(50px);} to {transform: translateY(0);} }
+        
+        @media (max-width: 900px) {
+            .layout-grid { grid-template-columns: 1fr; }
+            .sidebar { display: none; }
+            .footer-grid-layout { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 600px) {
+            .footer-grid-layout { grid-template-columns: 1fr; }
+            .modal-body { grid-template-columns: 1fr; }
+        }
+        
+             /* ============================================
    GLOBAL FOOTER STYLES
    ============================================ */
 .global-footer {
@@ -439,270 +430,373 @@
         gap: 10px;
     }
 }
+
     </style>
 </head>
 <body>
-    
-     <nav class="navbar">
+
+    <nav class="navbar">
         <div class="nav-container">
             <a href="#" class="nav-logo">Windore</a>
             <ul class="nav-menu">
                 <li><a href="solar.html">Home</a></li>
-                <li><a href="aboutus.html">Gallery</a></li>
-                <li><a href="gallery.html">Product</a></li>
+                <li><a href="aboutus.html">About</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
-            <div class="menu-toggle">
-                <i class="fas fa-bars"></i>
-            </div>
         </div>
     </nav>
 
-     <div class="page-header">
-        <div class="container">
-            <h1>PRODUCT</h1>
-        </div>
-    </div>
-
-    <section class="products-section">
-        <div class="section-header">
-            <h2 class="anim-title">Premium Solar Catalog</h2>
-            <p class="anim-title">Authorized distributor for top-tier solar equipment in India. BIS Certified products for residential and commercial use.</p>
-        </div>
-
-        <div class="product-grid">
-            
-            <div class="product-card">
-                <span class="badge">Best Seller</span>
-                <div class="card-image">☀️</div>
-                <span class="category-tag">Solar Panels</span>
-                <h3>Mono PERC 550W</h3>
-                <p>High-efficiency half-cut cell technology. Perfect for Indian rooftops with limited space.</p>
-                <div class="price-row">
-                    <div class="price">₹22,000 <span>/ unit</span></div>
-                    <div class="status"><div class="status-dot"></div> In Stock</div>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <span class="badge">Trending</span>
-                <div class="card-image">🌤️</div>
-                <span class="category-tag">Solar Panels</span>
-                <h3>Bifacial Dual-Glass</h3>
-                <p>Captures sunlight from both sides. Up to 30% more generation yield.</p>
-                <div class="price-row">
-                    <div class="price">₹28,500 <span>/ unit</span></div>
-                    <div class="status"><div class="status-dot"></div> In Stock</div>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <span class="badge hot">Hot Deal</span>
-                <div class="card-image">⚡</div>
-                <span class="category-tag">Inverters</span>
-                <h3>Hybrid Inverter 5kW</h3>
-                <p>Smart inverter that manages grid, solar, and battery. Wi-Fi monitoring included.</p>
-                <div class="price-row">
-                    <div class="price">₹55,000 <span>/ unit</span></div>
-                    <div class="status"><div class="status-dot"></div> In Stock</div>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="card-image">🔬</div>
-                <span class="category-tag">Inverters</span>
-                <h3>Micro-Inverter IQ8</h3>
-                <p>Module-level optimization. Best for roofs with shade issues from trees.</p>
-                <div class="price-row">
-                    <div class="price">₹14,500 <span>/ unit</span></div>
-                    <div class="status"><div class="status-dot"></div> In Stock</div>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <span class="badge">Long Life</span>
-                <div class="card-image">🔋</div>
-                <span class="category-tag">Batteries</span>
-                <h3>LiFePO4 Wall 5kWh</h3>
-                <p>Premium lithium battery with 6000+ cycles. 10-year warranty included.</p>
-                <div class="price-row">
-                    <div class="price">₹1,10,000 <span>/ unit</span></div>
-                    <div class="status"><div class="status-dot"></div> Pre-Order</div>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="card-image">🪫</div>
-                <span class="category-tag">Batteries</span>
-                <h3>Tall Tubular 200Ah</h3>
-                <p>Heavy-duty deep cycle C10 battery. Reliable backup for frequent power cuts.</p>
-                <div class="price-row">
-                    <div class="price">₹18,500 <span>/ unit</span></div>
-                    <div class="status"><div class="status-dot"></div> In Stock</div>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <span class="badge">Combo</span>
-                <div class="card-image">🏠</div>
-                <span class="category-tag">Solar Kits</span>
-                <h3>1kW Off-Grid Kit</h3>
-                <p>Complete set: Panels, Inverter, and Battery. Ideal for farmhouses.</p>
-                <div class="price-row">
-                    <div class="price">₹85,000 <span>/ kit</span></div>
-                    <div class="status"><div class="status-dot"></div> In Stock</div>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="card-image">📟</div>
-                <span class="category-tag">Controllers</span>
-                <h3>MPPT Controller 60A</h3>
-                <p>99% tracking efficiency. Maximizes current from panels to battery.</p>
-                <div class="price-row">
-                    <div class="price">₹8,500 <span>/ unit</span></div>
-                    <div class="status"><div class="status-dot"></div> In Stock</div>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <span class="badge">Portable</span>
-                <div class="card-image">⛺</div>
-                <span class="category-tag">Generators</span>
-                <h3>Portable Power 1000</h3>
-                <p>Carry your power anywhere. AC outlet for laptops, fans, and lights.</p>
-                <div class="price-row">
-                    <div class="price">₹42,000 <span>/ unit</span></div>
-                    <div class="status"><div class="status-dot"></div> In Stock</div>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="card-image">🔩</div>
-                <span class="category-tag">Racking</span>
-                <h3>High-Rise Structure</h3>
-                <p>Galvanized iron (GI) elevated structure. Wind resistant up to 150kmph.</p>
-                <div class="price-row">
-                    <div class="price">₹4,500 <span>/ kW</span></div>
-                    <div class="status"><div class="status-dot"></div> Custom</div>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <span class="badge">New</span>
-                <div class="card-image">❄️</div>
-                <span class="category-tag">Cooling</span>
-                <h3>DC Solar Fridge</h3>
-                <p>Runs directly on 12V/24V solar power. No inverter needed. 100L capacity.</p>
-                <div class="price-row">
-                    <div class="price">₹28,000 <span>/ unit</span></div>
-                    <div class="status"><div class="status-dot"></div> Low Stock</div>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="card-image">📱</div>
-                <span class="category-tag">Accessories</span>
-                <h3>Smart Energy Monitor</h3>
-                <p>Track your generation and consumption in real-time via mobile app.</p>
-                <div class="price-row">
-                    <div class="price">₹12,500 <span>/ unit</span></div>
-                    <div class="status"><div class="status-dot"></div> In Stock</div>
-                </div>
-            </div>
-
+    <section id="home" class="hero-section">
+        <div class="hero-content">
+            <h1>Green Energy Products</h1>
+            <p class="lead-text">Conserving precious natural resources through premier renewable energy solutions.</p>
         </div>
     </section>
 
-    <section class="global-footer">
     <div class="container">
-        <div class="footer-grid-layout">
+        <div class="layout-grid">
             
-            <div class="footer-col brand-col">
-                <div class="footer-logo">
-                    <div class="logo-icon-small"></div>
-                    <span>Windore</span>
+            <aside class="sidebar slide-in-left">
+                <div class="sidebar-header-row">
+                    <h3>Categories</h3>
+                    <span class="reset-btn" onclick="showAll()">Show All</span>
                 </div>
-                <p class="footer-about">
-                    Windore is India's leading integrated solar company, dedicated to providing world-class solar solutions for homes, businesses, and government projects. Innovation meets sustainability.
-                </p>
-                  </p>
-              <div class="social-links">
-                   <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                   <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                   <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                   <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
-              </div>
-            </div>
-
-            <div class="footer-col">
-                <h4>Company</h4>
-                <ul class="footer-list">
-                    <li><a href="solar.html">Home</a></li>
-                    <li><a href="aboutus.html">AboutUs</a></li>
-                    <li><a href="gallery.html">Gallery</a></li>
-                    <li><a href="product.html">Product</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col contact-col">
-                <h4>Let's Connect</h4>
-                <div class="contact-row">
-                    <span class="icon">📞</span>
-                    <a href="tel:9011286060">9011286060</a>
+                
+                <button class="accordion-btn">Solar Pumping Systems<i class="fas fa-chevron-down"></i></button>
+                <div class="panel">
+                    <a onclick="filterCategory('pumping')"><strong>View All</strong></a>
+                    <a onclick="filterProduct('agri-pump')">Solar Agri Pumps</a>
+                    <a onclick="filterProduct('bldc-pump')">BLDC Solar Pump</a>
+                    <a onclick="filterProduct('ac-pump')">AC Solar Pump</a>
+                    <a onclick="filterProduct('high-cap-pump')">High Capacity Pump</a>
                 </div>
-                <div class="contact-row">
-                    <span class="icon">✉️</span>
-                    <a href="mailto:info@windore.com">info@windore.com</a>
-                </div>
-                <div class="contact-row">
-                    <span class="icon">📍</span>
-                    <span>123 Windore Solar Avenue,<br>Pune, Maharashtra</span>
-                </div>
-            </div>
 
-        </div>
+                <button class="accordion-btn">Solar Power Generation<i class="fas fa-chevron-down"></i></button>
+                <div class="panel">
+                    <a onclick="filterCategory('generation')"><strong>View All</strong></a>
+                    <a onclick="filterProduct('rooftop')">Solar Roof Top</a>
+                    <a onclick="filterProduct('ground')">Ground Mounted</a>
+                    <a onclick="filterProduct('hybrid')">Diesel Hybrid</a>
+                </div>
 
-        <div class="footer-bottom-bar">
-            <p>© 2025 Windore Green Energy Ltd | Privacy Policy</p>
-            <p>Designed with ⚡ for a greener future.</p>
+               
+                <button class="accordion-btn">Solar PV Module<i class="fas fa-chevron-down"></i></button>
+                <div class="panel">
+                    <a onclick="filterCategory('modules')"><strong>View All</strong></a>
+                    <a onclick="filterProduct('pv-10-100')">PV Module 10–100 Wp</a>
+                    <a onclick="filterProduct('pv-160-170')">PV Module 160–170 Wp</a>
+                    <a onclick="filterProduct('pv-260-270')">PV Module 260–270 Wp</a>
+                    <a onclick="filterProduct('pv-400')">PERC PV Module</a>
+                </div>
+
+                <button class="accordion-btn">Mounting Structures<i class="fas fa-chevron-down"></i></button>
+                <div class="panel">
+                    <a onclick="filterCategory('mounting')"><strong>View All</strong></a>
+                    <a onclick="filterProduct('tracker')">Solar Tracker</a>
+                    <a onclick="filterProduct('agro')">Agro-Voltaic</a>
+                    <a onclick="filterProduct('floating')">Floating</a>
+                </div>
+
+                <button class="accordion-btn">Turnkey Projects<i class="fas fa-chevron-down"></i></button>
+                <div class="panel">
+                    <a onclick="filterCategory('projects')"><strong>View All</strong></a>
+                    <a onclick="filterProduct('proj-plant')">Power Plant Projects</a>
+                    <a onclick="filterProduct('proj-pump')">Pumping Projects</a>
+                </div>
+            </aside>
+
+            <main class="main-content">
+
+                <section id="pumping" class="product-category">
+                    <h2 class="section-title">Solar Pumping Systems</h2>
+                    <p class="section-desc">Agriculture, Domestic, Drinking water and industrial applications.</p>
+                    <div class="card-grid">
+                        <div class="product-card" data-id="agri-pump" onclick="openModal('agri-pump')">
+                            <img src="Solar Agri Pumps.jpg" alt="Agri" class="card-image">
+                            <div class="card-info"><h3>Solar Agri Pumps</h3><button class="view-btn">View Details</button></div>
+                        </div>
+                        <div class="product-card" data-id="bldc-pump" onclick="openModal('bldc-pump')">
+                            <img src="BLDC Solar Pump.jpg" alt="BLDC" class="card-image">
+                            <div class="card-info"><h3>BLDC Solar Pump</h3><button class="view-btn">View Details</button></div>
+                        </div>
+                        <div class="product-card" data-id="ac-pump" onclick="openModal('ac-pump')">
+                            <img src="AC Solar Pump.jpg" alt="AC" class="card-image">
+                            <div class="card-info"><h3>AC Solar Pump</h3><button class="view-btn">View Details</button></div>
+                        </div>
+                        <div class="product-card" data-id="high-cap-pump" onclick="openModal('high-cap-pump')">
+                            <img src="High Capacity Pump.jpg" alt="High" class="card-image">
+                            <div class="card-info"><h3>High Capacity Pump</h3><button class="view-btn">View Details</button></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="generation" class="product-category">
+                    <h2 class="section-title">Solar Power Generation</h2>
+                    <p class="section-desc">Distributed and centralised solar power generation solutions.</p>
+                    <div class="card-grid">
+                        <div class="product-card" data-id="rooftop" onclick="openModal('rooftop')">
+                            <img src="Solar Roof Top Plant.jpg" alt="Rooftop" class="card-image">
+                            <div class="card-info"><h3>Solar Roof Top Plant</h3><button class="view-btn">View Details</button></div>
+                        </div>
+                        <div class="product-card" data-id="ground" onclick="openModal('ground')">
+                            <img src="Solar Ground Mounted.jpg" alt="Ground" class="card-image">
+                            <div class="card-info"><h3>Solar Ground Mounted</h3><button class="view-btn">View Details</button></div>
+                        </div>
+                        <div class="product-card" data-id="hybrid" onclick="openModal('hybrid')">
+                            <img src="Solar PV Diesel Hybrid.jpg" alt="Hybrid" class="card-image">
+                            <div class="card-info"><h3>Solar PV Diesel Hybrid</h3><button class="view-btn">View Details</button></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="modules" class="product-category">
+                    <h2 class="section-title">Solar Photovoltaic Module</h2>
+                    <p class="section-desc">State of the art world class manufacturing facilities for PV modules.</p>
+                    <div class="list-layout">
+                        <div class="list-item" data-id="pv-10-100" onclick="openModal('pv-10-100')">
+                            <img src="PV Module 10–100 Wp.jpg" class="list-thumb">
+                            <span class="text">PV Module 10–100 Wp</span>
+                        </div>
+                        <div class="list-item" data-id="pv-160-170" onclick="openModal('pv-160-170')">
+                            <img src="PV Module 160–170 Wp.jpg" class="list-thumb">
+                            <span class="text">PV Module 160–170 Wp</span>
+                        </div>
+                        <div class="list-item" data-id="pv-260-270" onclick="openModal('pv-260-270')">
+                            <img src="PV Module 260–270 Wp.jpg" class="list-thumb">
+                            <span class="text">PV Module 260–270 Wp</span>
+                        </div>
+                        <div class="list-item" data-id="pv-400" onclick="openModal('pv-400')">
+                            <img src="PERC PV Module 400 Wp (High Efficiency).jpg" class="list-thumb">
+                            <span class="text">PERC PV Module 400 Wp</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="mounting" class="product-category">
+                    <h2 class="section-title">Module Mounting Structure</h2>
+                    <p class="section-desc">Robust and versatile mounting solutions for every terrain.</p>
+                    <div class="card-grid">
+                        <div class="product-card" data-id="tracker" onclick="openModal('tracker')">
+                            <img src="Jain Solar Tracker.jpg" alt="Tracker" class="card-image">
+                            <div class="card-info"><h3>Jain Solar Tracker</h3><button class="view-btn">View Details</button></div>
+                        </div>
+                        <div class="product-card" data-id="agro" onclick="openModal('agro')">
+                            <img src="Agro-Voltaic Farming.jpg" alt="Agro" class="card-image">
+                            <div class="card-info"><h3>Agro-Voltaic Farming</h3><button class="view-btn">View Details</button></div>
+                        </div>
+                        <div class="product-card" data-id="floating" onclick="openModal('floating')">
+                            <img src="Floating Structures.jpg" alt="Floating" class="card-image">
+                            <div class="card-info"><h3>Floating Structures</h3><button class="view-btn">View Details</button></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="projects" class="product-category">
+                    <h2 class="section-title">Projects</h2>
+                    <p class="section-desc">Executing turnkey projects with a proven track record.</p>
+                    <div class="project-grid">
+                        <div class="project-card" data-id="proj-plant" style="background-image: url('Solar PV-Power Plant Projects.jpg');" onclick="openModal('proj-plant')">
+                            <div class="project-overlay"><h4>Solar PV-Power Plant Projects</h4></div>
+                        </div>
+                        <div class="project-card" data-id="proj-pump" style="background-image: url('Solar Pumping Projects.jpg');" onclick="openModal('proj-pump')">
+                            <div class="project-overlay"><h4>Solar Pumping Projects</h4></div>
+                        </div>
+                    </div>
+                </section>
+
+            </main>
         </div>
     </div>
-</section>
+
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Product Name</h2>
+                <span class="close-btn" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="modal-image-container">
+                    <img id="modal-img" src="" alt="Product Image" class="modal-img">
+                </div>
+                <div class="modal-details">
+                    <h3>Description</h3>
+                    <p id="modal-desc">Description</p>
+                    <h3>Key Features / Specs</h3>
+                    <ul id="modal-specs"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+      <section class="global-footer">
+        <div class="container">
+            <div class="footer-grid-layout">
+                <div class="footer-col brand-col">
+                    <div class="footer-logo">
+                        <div class="logo-icon-small"></div>
+                        <span>Windore</span>
+                    </div>
+                    <p class="footer-about">
+                        Windore is India's leading integrated solar company, dedicated to providing world-class solar solutions for homes, businesses, and government projects. Innovation meets sustainability.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul class="footer-list">
+                        <li><a href="solar.html">Home</a></li>
+                        <li><a href="aboutus.html">AboutUs</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col contact-col">
+                    <h4>Let's Connect</h4>
+                    <div class="contact-row">
+                        <span class="icon">📞</span>
+                        <a href="tel:9011286060">9011286060</a>
+                    </div>
+                    <div class="contact-row">
+                        <span class="icon">✉️</span>
+                        <a href="mailto:info@windore.com">info@windore.com</a>
+                    </div>
+                    <div class="contact-row">
+                        <span class="icon">📍</span>
+                        <span>123 Windore Solar Avenue,<br>Pune, Maharashtra</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom-bar">
+                <p>© 2025 Windore Green Energy Ltd | Privacy Policy</p>
+                <p>Designed with ⚡ for a greener future.</p>
+            </div>
+        </div>
+    </section>
 
     <script>
-        // Initialize GSAP ScrollTrigger
-        gsap.registerPlugin(ScrollTrigger);
+        // --- Filtering Functions ---
 
-        // 1. Title Animation (Fade Up)
-        gsap.from(".anim-title", {
-            scrollTrigger: {
-                trigger: ".products-section",
-                start: "top 80%", // Starts when section top hits 80% of viewport
-            },
-            y: 50,
-            opacity: 0,
-            duration: 1,
-            stagger: 0.2,
-            ease: "power3.out"
-        });
+        // Show a Single Product ONLY
+        function filterProduct(id) {
+            // 1. Hide all main sections
+            const sections = document.querySelectorAll('.product-category');
+            sections.forEach(sec => sec.classList.add('d-none'));
 
-        // 2. Product Grid Staggered Animation
-        // "batch" allows new items to animate as you scroll down to them
-        ScrollTrigger.batch(".product-card", {
-            onEnter: batch => gsap.to(batch, {
-                opacity: 1,
-                y: 0,
-                duration: 0.8,
-                stagger: 0.1,
-                ease: "back.out(1.2)" // Subtle bounce effect
-            }),
-            start: "top 85%",
-        });
+            // 2. Find the specific card
+            // Search in cards and list items and projects
+            const card = document.querySelector(`.product-card[data-id="${id}"], .list-item[data-id="${id}"], .project-card[data-id="${id}"]`);
+            
+            if (card) {
+                // 3. Unhide the parent section of that card
+                const parentSection = card.closest('.product-category');
+                parentSection.classList.remove('d-none');
 
-        // Initial Set: Hide cards and push them down
-        gsap.set(".product-card", { y: 60, opacity: 0 });
+                // 4. Hide ALL sibling cards in that section
+                const siblings = parentSection.querySelectorAll('.product-card, .list-item, .project-card');
+                siblings.forEach(sib => sib.classList.add('d-none'));
+
+                // 5. Show ONLY the target card
+                card.classList.remove('d-none');
+
+                // Scroll to top of content
+                document.querySelector('.main-content').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Show Entire Category (e.g. All Pumps)
+        function filterCategory(categoryId) {
+            const sections = document.querySelectorAll('.product-category');
+            sections.forEach(sec => {
+                if (sec.id === categoryId) {
+                    sec.classList.remove('d-none');
+                    // Make sure all children are visible
+                    const children = sec.querySelectorAll('.product-card, .list-item, .project-card');
+                    children.forEach(child => child.classList.remove('d-none'));
+                } else {
+                    sec.classList.add('d-none');
+                }
+            });
+            document.querySelector('.main-content').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Show Everything (Reset)
+        function showAll() {
+            const sections = document.querySelectorAll('.product-category');
+            sections.forEach(sec => {
+                sec.classList.remove('d-none');
+                const children = sec.querySelectorAll('.product-card, .list-item, .project-card');
+                children.forEach(child => child.classList.remove('d-none'));
+            });
+        }
+
+        // --- Accordion Logic ---
+        const acc = document.getElementsByClassName("accordion-btn");
+        for (let i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function() {
+                this.classList.toggle("active-acc");
+                var panel = this.nextElementSibling;
+                if (panel.style.maxHeight) {
+                    panel.style.maxHeight = null;
+                } else {
+                    // Optional: Close others
+                    var allPanels = document.getElementsByClassName("panel");
+                    var allBtns = document.getElementsByClassName("accordion-btn");
+                    for(let j=0; j<allPanels.length; j++){
+                        allPanels[j].style.maxHeight = null;
+                        allBtns[j].classList.remove("active-acc");
+                    }
+                    this.classList.add("active-acc");
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                } 
+            });
+        }
+
+        // --- Data & Modal Logic (Same as before) ---
+        const productData = {
+            "agri-pump": { title: "Solar Agri Pumps", image: "Solar Agri Pumps.jpg", desc: "Our Solar Agri Pumps are designed for high efficiency and durability in harsh agricultural environments. They provide a reliable water supply for irrigation without electricity costs.", specs: ["Head Range: 10m to 100m", "Discharge: 2000 to 500,000 Liters/Day", "Motor: High-efficiency DC/AC Motor", "Warranty: 5 Years", "Automatic Start/Stop with sunlight"] },
+            "bldc-pump": { title: "BLDC Solar Pump", image: "BLDC Solar Pump.jpg", desc: "Brushless DC (BLDC) technology ensures maximum efficiency and longer life span. Ideal for remote locations requiring consistent water output.", specs: ["Efficiency: > 90%", "Maintenance Free Operation", "Built-in MPPT Controller", "Dry run protection included", "Compact and lightweight design"] },
+            "ac-pump": { title: "AC Solar Pump", image: "AC Solar Pump.jpg", desc: "Seamlessly convert your existing AC pump into a solar pump using our advanced Solar Variable Frequency Drives (VFD).", specs: ["Compatible with standard AC motors", "Grid/Generator hybrid options available", "Soft start functionality", "Power Range: 1HP to 100HP", "Smart monitoring via App"] },
+            "high-cap-pump": { title: "High Capacity Pump", image: "High Capacity Pump.jpg", desc: "Engineered for large-scale irrigation and industrial water supply. Capable of moving massive volumes of water efficiently.", specs: ["Flow Rate: Up to 1,000,000 LPD", "Industrial grade construction", "Advanced thermal management", "Suitable for canal lifting and community water"] },
+            "rooftop": { title: "Solar Roof Top Plant", image: "Solar Roof Top Plant.jpg", desc: "Turn your unused roof space into a power generator. Reduce electricity bills significantly with our grid-tied rooftop systems.", specs: ["Net-Metering compatible", "ROI in 3-4 years", "Remote monitoring included", "25-year performance warranty on modules", "Customized structure design"] },
+            "ground": { title: "Solar Ground Mounted", image: "Solar Ground Mounted.jpg", desc: "Ideal for utility-scale power generation or large industries with available land. Optimized for maximum sun exposure.", specs: ["Scalable from kW to MW", "Robust galvanized steel structure", "High wind speed resistance (150 kmph+)", "Quick installation timeline", "Grid stability integration"] },
+            "hybrid": { title: "Solar PV Diesel Hybrid", image: "Solar PV Diesel Hybrid.jpg", desc: "Intelligent fuel saver solution that synchronizes solar power with DG sets, ensuring power availability while cutting fuel costs.", specs: ["Fuel Saving: Up to 40-60%", "Seamless switching logic", "Prevents reverse power flow to DG", "Real-time load management", "Suitable for factories and hospitals"] },
+            "pv-10-100": { title: "PV Module 10–100 Wp", image: "PV Module 10–100 Wp.jpg", desc: "Compact modules designed for small applications like street lights, home lighting systems, and portable chargers.", specs: ["High transmission tempered glass", "Anodized aluminum frame", "Excellent low light performance"] },
+            "pv-160-170": { title: "PV Module 160–170 Wp", image: "PV Module 160–170 Wp.jpg", desc: "Mid-range modules suitable for off-grid battery charging systems and small domestic setups.", specs: ["36 Cell Polycrystalline", "Robust junction box", "IEC 61215 Certified"] },
+            "pv-260-270": { title: "PV Module 260–270 Wp", image: "PV Module 260–270 Wp.jpg", desc: "Standard 60-cell modules, widely used for residential rooftop and commercial projects.", specs: ["Efficiency > 16%", "PID Resistant", "Positive power tolerance"] },
+            "pv-400": { title: "PERC PV Module 400 Wp", image: "PERC PV Module 400 Wp (High Efficiency).jpg", desc: "Cutting-edge MONO PERC technology delivering highest efficiency per square meter. Best for space-constrained areas.", specs: ["Mono-crystalline PERC cells", "Efficiency > 20%", "Reduced shading loss", "Split cell technology", "Lower temperature coefficient"] },
+            "tracker": { title: "Jain Solar Tracker", image: "Jain Solar Tracker.jpg", desc: "Mechanized structure that follows the sun's path throughout the day, significantly increasing energy generation.", specs: ["Single Axis & Dual Axis options", "Generation increase: 15-25%", "Automatic stow during high winds", "Low maintenance bearings"] },
+            "agro": { title: "Agro-Voltaic Farming", image: "Agro-Voltaic Farming.jpg", desc: "Innovative dual-use system allowing farming underneath solar panels. Optimize land use efficiency.", specs: ["Elevated structure (3m+ height)", "Specific crop compatibility", "Reduces water evaporation from soil", "Generates power for farm needs"] },
+            "floating": { title: "Floating Structures (Jain Tarang)", image: "Floating Structures.jpg", desc: "Install solar panels on water bodies like reservoirs and lakes. Conserves land and reduces water evaporation.", specs: ["HDPE Floats", "Cooling effect increases generation", "UV resistant material", "Eco-friendly design"] },
+            "proj-plant": { title: "Solar Power Plant Projects", image: "Solar PV-Power Plant Projects.jpg", desc: "Complete EPC (Engineering, Procurement, Construction) services for MW scale solar parks.", specs: ["Site Feasibility Study", "High Voltage Transmission", "Substation Automation", "O&M Services"] },
+            "proj-pump": { title: "Solar Pumping Projects", image: "Solar Pumping Projects.jpg", desc: "Implementation of government schemes (Kusum) and community water supply projects across states.", specs: ["Remote village electrification", "Drinking water schemes", "Integrated drip irrigation projects"] }
+        };
+
+        function openModal(id) {
+            const data = productData[id];
+            if(!data) return;
+            document.getElementById('modal-title').textContent = data.title;
+            document.getElementById('modal-img').src = data.image;
+            document.getElementById('modal-desc').textContent = data.desc;
+            const ul = document.getElementById('modal-specs');
+            ul.innerHTML = '';
+            data.specs.forEach(s => { let li = document.createElement('li'); li.textContent = s; ul.appendChild(li); });
+            document.getElementById('product-modal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal() {
+            document.getElementById('product-modal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        window.onclick = function(e) { if(e.target == document.getElementById('product-modal')) closeModal(); }
     </script>
 </body>
 </html>
