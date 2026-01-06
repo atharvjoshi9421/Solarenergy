@@ -5,433 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Renewable Energy - Windore</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        /* --- Reset & Base Styles --- */
-        :root {
-            --primary-green: #006400;
-            --accent-green: #4CAF50;
-            --light-bg: #f4f7f6;
-            --white: #ffffff;
-            --text-dark: #333333;
-            --text-light: #666666;
-            --shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background-color: var(--light-bg);
-            color: var(--text-dark);
-            line-height: 1.6;
-        }
-
-        /* --- Utility Class for Filtering --- */
-        .d-none {
-            display: none !important;
-        }
-
-        /* --- Navbar --- */
-        .navbar {
-            background-color: var(--white);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            padding: 15px 0;
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .nav-logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary-green);
-            text-decoration: none;
-            text-transform: uppercase;
-        }
-
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: 30px;
-        }
-
-        .nav-menu li a {
-            text-decoration: none;
-            color: var(--text-dark);
-            font-weight: 500;
-            font-size: 1rem;
-            transition: color 0.3s ease;
-        }
-
-        .nav-menu li a:hover { color: var(--primary-green); }
-        .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; }
-
-        /* --- Hero Section --- */
-        .hero-section {
-            position: relative;
-            height: 400px;
-              background: linear-gradient(rgba(0, 100, 0, 0.7), rgba(0, 100, 0, 0.4)), 
-                        url('product page hero section.jpg') no-repeat center center/cover;
-            color: var(--white);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-
-        .hero-content {
-            z-index: 1;
-            max-width: 800px;
-            padding: 20px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .hero-content h1 { font-size: 3rem; margin-bottom: 15px; }
-        .lead-text { font-size: 1.2rem; margin-bottom: 20px; font-weight: 300; }
-
-        /* --- Layout --- */
-        .container {
-            max-width: 1200px;
-            margin: 50px auto;
-            padding: 0 20px;
-        }
-
-        .layout-grid {
-            display: grid;
-            grid-template-columns: 280px 1fr;
-            gap: 40px;
-        }
-
-        /* --- Sidebar (Accordion) --- */
-        .sidebar {
-            background: var(--white);
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: var(--shadow);
-            height: fit-content;
-            position: sticky;
-            top: 100px;
-        }
-
-        .sidebar-header-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 3px solid var(--accent-green);
-            padding-bottom: 10px;
-            margin-bottom: 15px;
-        }
-
-        .sidebar h3 {
-            color: var(--primary-green);
-            font-size: 1.2rem;
-            margin: 0;
-        }
-
-        .reset-btn {
-            font-size: 0.8rem;
-            color: var(--text-light);
-            cursor: pointer;
-            text-decoration: underline;
-        }
-        .reset-btn:hover { color: var(--primary-green); }
-
-        .accordion-btn {
-            background-color: #f1f1f1;
-            color: var(--text-dark);
-            cursor: pointer;
-            padding: 12px 15px;
-            width: 100%;
-            border: none;
-            text-align: left;
-            outline: none;
-            font-size: 0.95rem;
-            font-weight: 600;
-            transition: 0.3s;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-radius: 5px;
-            margin-bottom: 5px;
-        }
-
-        .active-acc, .accordion-btn:hover {
-            background-color: #e8f5e9;
-            color: var(--primary-green);
-        }
-
-        .accordion-btn i { transition: transform 0.3s ease; font-size: 0.8rem; }
-        .active-acc i { transform: rotate(180deg); }
-
-        .panel {
-            padding: 0 15px;
-            background-color: white;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-            border-left: 3px solid var(--accent-green);
-            margin-bottom: 5px;
-        }
-
-        .panel a {
-            display: block;
-            text-decoration: none;
-            color: var(--text-light);
-            padding: 8px 0;
-            font-size: 0.9rem;
-            border-bottom: 1px solid #eee;
-            transition: 0.2s;
-            cursor: pointer;
-        }
-
-        .panel a:hover { color: var(--primary-green); padding-left: 5px; }
-        .panel a:last-child { border-bottom: none; }
-
-        /* --- Content Area --- */
-        .product-category { margin-bottom: 60px; scroll-margin-top: 100px; }
-        .section-title { color: var(--primary-green); margin-bottom: 10px; font-size: 2rem; position: relative; }
-        .section-title::after { content: ''; display: block; width: 60px; height: 4px; background: var(--accent-green); margin-top: 8px; border-radius: 2px; }
-        .section-desc { color: var(--text-light); margin-bottom: 25px; }
-
-        /* --- Cards --- */
-        .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 25px; }
-        .product-card {
-            background: #fff; border-radius: 12px; overflow: hidden;
-            box-shadow: var(--shadow); transition: transform 0.3s; cursor: pointer;
-            border: 1px solid transparent;
-        }
-        .product-card:hover { transform: translateY(-5px); border-color: var(--accent-green); }
-        .card-image { width: 100%; height: 180px; object-fit: cover; border-bottom: 3px solid var(--accent-green); }
-        .card-info { padding: 15px; text-align: center; }
-        .product-card h3 { font-size: 1.1rem; margin-bottom: 8px; color: var(--primary-green); }
-        .view-btn {
-            background: transparent; border: 1px solid var(--accent-green); color: var(--accent-green);
-            padding: 6px 15px; border-radius: 20px; cursor: pointer; font-size: 0.85rem; font-weight: bold; transition: all 0.3s;
-        }
-        .product-card:hover .view-btn { background: var(--accent-green); color: var(--white); }
-
-        /* --- List --- */
-        .list-layout { display: flex; flex-direction: column; gap: 10px; }
-        .list-item {
-            display: flex; align-items: center; padding: 10px; background: #fff; border-radius: 8px;
-            box-shadow: var(--shadow); transition: transform 0.3s; cursor: pointer;
-        }
-        .list-item:hover { transform: translateX(5px); background: #fafafa; }
-        .list-thumb { width: 60px; height: 60px; border-radius: 6px; object-fit: cover; margin-right: 20px; }
-
-        /* --- Projects --- */
-        .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
-        .project-card {
-            height: 220px; border-radius: 12px; overflow: hidden; position: relative;
-            background-size: cover; background-position: center; cursor: pointer;
-        }
-        .project-overlay {
-            position: absolute; bottom: 0; left: 0; width: 100%; padding: 15px;
-            background: linear-gradient(transparent, rgba(0,0,0,0.9)); color: var(--white);
-        }
-
-        /* --- Modal --- */
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); }
-        .modal-content { background-color: #fff; margin: 5% auto; border-radius: 10px; width: 90%; max-width: 800px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); animation: slideUp 0.4s; overflow: hidden; }
-        .modal-header { background-color: var(--primary-green); color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
-        .close-btn { color: white; font-size: 28px; cursor: pointer; }
-        .modal-body { padding: 25px; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-        .modal-img { width: 100%; border-radius: 8px; border: 1px solid #ddd; }
-        
-        @keyframes slideUp { from {transform: translateY(50px);} to {transform: translateY(0);} }
-        
-        @media (max-width: 900px) {
-            .layout-grid { grid-template-columns: 1fr; }
-            .sidebar { display: none; }
-            .footer-grid-layout { grid-template-columns: 1fr 1fr; }
-        }
-        @media (max-width: 600px) {
-            .footer-grid-layout { grid-template-columns: 1fr; }
-            .modal-body { grid-template-columns: 1fr; }
-        }
-        
-             /* ============================================
-   GLOBAL FOOTER STYLES
-   ============================================ */
-.global-footer {
-    background-color: #1a1a1a; /* Your dark theme color */
-    color: #FDF6E8; /* Your light text color */
-    padding: 80px 0 30px;
-    position: relative;
-    z-index: 20;
-    border-top: 1px solid rgba(255,255,255,0.1);
-}
-
-.footer-grid-layout {
-    display: grid;
-    grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
-    gap: 50px;
-    margin-bottom: 60px;
-}
-
-/* Brand Column */
-.footer-logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 20px;
-    color: #EFCEAD; /* Your Gold Accent */
-}
-
-.logo-icon-small {
-    width: 20px;
-    height: 20px;
-    background: #EFCEAD;
-    border-radius: 50%;
-    position: relative;
-}
-
-.footer-about {
-    color: rgba(255,255,255,0.6);
-    font-size: 0.95rem;
-    line-height: 1.7;
-    margin-bottom: 30px;
-    max-width: 350px;
-}
-
-/* Headings */
-.footer-col h4 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.3rem;
-    color: #fff;
-    margin-bottom: 25px;
-    position: relative;
-    padding-bottom: 10px;
-}
-
-.footer-col h4::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 40px;
-    height: 2px;
-    background: #EFCEAD;
-}
-
-/* Links List */
-.footer-list {
-    list-style: none;
-}
-
-.footer-list li {
-    margin-bottom: 15px;
-}
-
-.footer-list a {
-    text-decoration: none;
-    color: rgba(255,255,255,0.7);
-    font-size: 0.95rem;
-    transition: all 0.3s ease;
-    display: inline-block;
-}
-
-.footer-list a:hover {
-    color: #EFCEAD;
-    transform: translateX(5px);
-}
-
-/* Contact Info */
-.contact-row {
-    display: flex;
-    align-items: flex-start;
-    gap: 15px;
-    margin-bottom: 20px;
-    color: rgba(255,255,255,0.7);
-    font-size: 0.95rem;
-}
-
-.contact-row .icon {
-    color: #EFCEAD;
-}
-
-.contact-row a {
-    color: rgba(255,255,255,0.7);
-    text-decoration: none;
-    transition: color 0.3s;
-}
-
-.contact-row a:hover {
-    color: #EFCEAD;
-}
-
-/* Social Icons */
-.social-links {
-    display: flex;
-    gap: 15px;
-}
-
-.social-links a {
-    width: 40px;
-    height: 40px;
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: all 0.3s;
-}
-
-.social-links a:hover {
-    background: #EFCEAD;
-    color: #1a1a1a;
-    border-color: #EFCEAD;
-}
-
-/* Bottom Bar */
-.footer-bottom-bar {
-    border-top: 1px solid rgba(255,255,255,0.1);
-    padding-top: 30px;
-    display: flex;
-    justify-content: space-between;
-    color: rgba(255,255,255,0.4);
-    font-size: 0.85rem;
-}
-
-/* Responsive Footer */
-@media (max-width: 900px) {
-    .footer-grid-layout {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 600px) {
-    .footer-grid-layout {
-        grid-template-columns: 1fr;
-    }
-    .footer-bottom-bar {
-        flex-direction: column;
-        text-align: center;
-        gap: 10px;
-    }
-}
-
-    </style>
+    <link rel="stylesheet" href="style_css/product.css">
 </head>
 <body>
 
@@ -439,7 +13,7 @@
         <div class="nav-container">
             <a href="#" class="nav-logo">Windore</a>
             <ul class="nav-menu">
-                <li><a href="solar.html">Home</a></li>
+                <li><a href="index.html">Home</a></li>
                 <li><a href="aboutus.html">About</a></li>
                 <li><a href="gallery.html">Gallery</a></li>
                 <li><a href="contact.html">Contact</a></li>
@@ -513,19 +87,19 @@
                     <p class="section-desc">Agriculture, Domestic, Drinking water and industrial applications.</p>
                     <div class="card-grid">
                         <div class="product-card" data-id="agri-pump" onclick="openModal('agri-pump')">
-                            <img src="Solar Agri Pumps.jpg" alt="Agri" class="card-image">
+                            <img src="images/Solar Agri Pumps.jpg" alt="Agri" class="card-image">
                             <div class="card-info"><h3>Solar Agri Pumps</h3><button class="view-btn">View Details</button></div>
                         </div>
                         <div class="product-card" data-id="bldc-pump" onclick="openModal('bldc-pump')">
-                            <img src="BLDC Solar Pump.jpg" alt="BLDC" class="card-image">
+                            <img src="images/BLDC Solar Pump.jpg" alt="BLDC" class="card-image">
                             <div class="card-info"><h3>BLDC Solar Pump</h3><button class="view-btn">View Details</button></div>
                         </div>
                         <div class="product-card" data-id="ac-pump" onclick="openModal('ac-pump')">
-                            <img src="AC Solar Pump.jpg" alt="AC" class="card-image">
+                            <img src="images/AC Solar Pump.jpg" alt="AC" class="card-image">
                             <div class="card-info"><h3>AC Solar Pump</h3><button class="view-btn">View Details</button></div>
                         </div>
                         <div class="product-card" data-id="high-cap-pump" onclick="openModal('high-cap-pump')">
-                            <img src="High Capacity Pump.jpg" alt="High" class="card-image">
+                            <img src="images/High Capacity Pump.jpg" alt="High" class="card-image">
                             <div class="card-info"><h3>High Capacity Pump</h3><button class="view-btn">View Details</button></div>
                         </div>
                     </div>
@@ -536,15 +110,15 @@
                     <p class="section-desc">Distributed and centralised solar power generation solutions.</p>
                     <div class="card-grid">
                         <div class="product-card" data-id="rooftop" onclick="openModal('rooftop')">
-                            <img src="Solar Roof Top Plant.jpg" alt="Rooftop" class="card-image">
+                            <img src="images/Solar Roof Top Plant.jpg" alt="Rooftop" class="card-image">
                             <div class="card-info"><h3>Solar Roof Top Plant</h3><button class="view-btn">View Details</button></div>
                         </div>
                         <div class="product-card" data-id="ground" onclick="openModal('ground')">
-                            <img src="Solar Ground Mounted.jpg" alt="Ground" class="card-image">
+                            <img src="images/Solar Ground Mounted.jpg" alt="Ground" class="card-image">
                             <div class="card-info"><h3>Solar Ground Mounted</h3><button class="view-btn">View Details</button></div>
                         </div>
                         <div class="product-card" data-id="hybrid" onclick="openModal('hybrid')">
-                            <img src="Solar PV Diesel Hybrid.jpg" alt="Hybrid" class="card-image">
+                            <img src="images/Solar PV Diesel Hybrid.jpg" alt="Hybrid" class="card-image">
                             <div class="card-info"><h3>Solar PV Diesel Hybrid</h3><button class="view-btn">View Details</button></div>
                         </div>
                     </div>
@@ -555,19 +129,19 @@
                     <p class="section-desc">State of the art world class manufacturing facilities for PV modules.</p>
                     <div class="list-layout">
                         <div class="list-item" data-id="pv-10-100" onclick="openModal('pv-10-100')">
-                            <img src="PV Module 10–100 Wp.jpg" class="list-thumb">
+                            <img src="images/PV Module 10–100 Wp.jpg" class="list-thumb">
                             <span class="text">PV Module 10–100 Wp</span>
                         </div>
                         <div class="list-item" data-id="pv-160-170" onclick="openModal('pv-160-170')">
-                            <img src="PV Module 160–170 Wp.jpg" class="list-thumb">
+                            <img src="images/PV Module 160–170 Wp.jpg" class="list-thumb">
                             <span class="text">PV Module 160–170 Wp</span>
                         </div>
                         <div class="list-item" data-id="pv-260-270" onclick="openModal('pv-260-270')">
-                            <img src="PV Module 260–270 Wp.jpg" class="list-thumb">
+                            <img src="images/PV Module 260–270 Wp.jpg" class="list-thumb">
                             <span class="text">PV Module 260–270 Wp</span>
                         </div>
                         <div class="list-item" data-id="pv-400" onclick="openModal('pv-400')">
-                            <img src="PERC PV Module 400 Wp (High Efficiency).jpg" class="list-thumb">
+                            <img src="images/PERC PV Module 400 Wp (High Efficiency).jpg" class="list-thumb">
                             <span class="text">PERC PV Module 400 Wp</span>
                         </div>
                     </div>
@@ -578,15 +152,15 @@
                     <p class="section-desc">Robust and versatile mounting solutions for every terrain.</p>
                     <div class="card-grid">
                         <div class="product-card" data-id="tracker" onclick="openModal('tracker')">
-                            <img src="Jain Solar Tracker.jpg" alt="Tracker" class="card-image">
+                            <img src="images/Jain Solar Tracker.jpg" alt="Tracker" class="card-image">
                             <div class="card-info"><h3>Jain Solar Tracker</h3><button class="view-btn">View Details</button></div>
                         </div>
                         <div class="product-card" data-id="agro" onclick="openModal('agro')">
-                            <img src="Agro-Voltaic Farming.jpg" alt="Agro" class="card-image">
+                            <img src="images/Agro-Voltaic Farming.jpg" alt="Agro" class="card-image">
                             <div class="card-info"><h3>Agro-Voltaic Farming</h3><button class="view-btn">View Details</button></div>
                         </div>
                         <div class="product-card" data-id="floating" onclick="openModal('floating')">
-                            <img src="Floating Structures.jpg" alt="Floating" class="card-image">
+                            <img src="images/Floating Structures.jpg" alt="Floating" class="card-image">
                             <div class="card-info"><h3>Floating Structures</h3><button class="view-btn">View Details</button></div>
                         </div>
                     </div>
@@ -651,7 +225,7 @@
                 <div class="footer-col">
                     <h4>Company</h4>
                     <ul class="footer-list">
-                        <li><a href="solar.html">Home</a></li>
+                        <li><a href="index.html">Home</a></li>
                         <li><a href="aboutus.html">AboutUs</a></li>
                         <li><a href="gallery.html">Gallery</a></li>
                         <li><a href="contact.html">Contact</a></li>
@@ -682,121 +256,6 @@
         </div>
     </section>
 
-    <script>
-        // --- Filtering Functions ---
-
-        // Show a Single Product ONLY
-        function filterProduct(id) {
-            // 1. Hide all main sections
-            const sections = document.querySelectorAll('.product-category');
-            sections.forEach(sec => sec.classList.add('d-none'));
-
-            // 2. Find the specific card
-            // Search in cards and list items and projects
-            const card = document.querySelector(`.product-card[data-id="${id}"], .list-item[data-id="${id}"], .project-card[data-id="${id}"]`);
-            
-            if (card) {
-                // 3. Unhide the parent section of that card
-                const parentSection = card.closest('.product-category');
-                parentSection.classList.remove('d-none');
-
-                // 4. Hide ALL sibling cards in that section
-                const siblings = parentSection.querySelectorAll('.product-card, .list-item, .project-card');
-                siblings.forEach(sib => sib.classList.add('d-none'));
-
-                // 5. Show ONLY the target card
-                card.classList.remove('d-none');
-
-                // Scroll to top of content
-                document.querySelector('.main-content').scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-
-        // Show Entire Category (e.g. All Pumps)
-        function filterCategory(categoryId) {
-            const sections = document.querySelectorAll('.product-category');
-            sections.forEach(sec => {
-                if (sec.id === categoryId) {
-                    sec.classList.remove('d-none');
-                    // Make sure all children are visible
-                    const children = sec.querySelectorAll('.product-card, .list-item, .project-card');
-                    children.forEach(child => child.classList.remove('d-none'));
-                } else {
-                    sec.classList.add('d-none');
-                }
-            });
-            document.querySelector('.main-content').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // Show Everything (Reset)
-        function showAll() {
-            const sections = document.querySelectorAll('.product-category');
-            sections.forEach(sec => {
-                sec.classList.remove('d-none');
-                const children = sec.querySelectorAll('.product-card, .list-item, .project-card');
-                children.forEach(child => child.classList.remove('d-none'));
-            });
-        }
-
-        // --- Accordion Logic ---
-        const acc = document.getElementsByClassName("accordion-btn");
-        for (let i = 0; i < acc.length; i++) {
-            acc[i].addEventListener("click", function() {
-                this.classList.toggle("active-acc");
-                var panel = this.nextElementSibling;
-                if (panel.style.maxHeight) {
-                    panel.style.maxHeight = null;
-                } else {
-                    // Optional: Close others
-                    var allPanels = document.getElementsByClassName("panel");
-                    var allBtns = document.getElementsByClassName("accordion-btn");
-                    for(let j=0; j<allPanels.length; j++){
-                        allPanels[j].style.maxHeight = null;
-                        allBtns[j].classList.remove("active-acc");
-                    }
-                    this.classList.add("active-acc");
-                    panel.style.maxHeight = panel.scrollHeight + "px";
-                } 
-            });
-        }
-
-        // --- Data & Modal Logic (Same as before) ---
-        const productData = {
-            "agri-pump": { title: "Solar Agri Pumps", image: "Solar Agri Pumps.jpg", desc: "Our Solar Agri Pumps are designed for high efficiency and durability in harsh agricultural environments. They provide a reliable water supply for irrigation without electricity costs.", specs: ["Head Range: 10m to 100m", "Discharge: 2000 to 500,000 Liters/Day", "Motor: High-efficiency DC/AC Motor", "Warranty: 5 Years", "Automatic Start/Stop with sunlight"] },
-            "bldc-pump": { title: "BLDC Solar Pump", image: "BLDC Solar Pump.jpg", desc: "Brushless DC (BLDC) technology ensures maximum efficiency and longer life span. Ideal for remote locations requiring consistent water output.", specs: ["Efficiency: > 90%", "Maintenance Free Operation", "Built-in MPPT Controller", "Dry run protection included", "Compact and lightweight design"] },
-            "ac-pump": { title: "AC Solar Pump", image: "AC Solar Pump.jpg", desc: "Seamlessly convert your existing AC pump into a solar pump using our advanced Solar Variable Frequency Drives (VFD).", specs: ["Compatible with standard AC motors", "Grid/Generator hybrid options available", "Soft start functionality", "Power Range: 1HP to 100HP", "Smart monitoring via App"] },
-            "high-cap-pump": { title: "High Capacity Pump", image: "High Capacity Pump.jpg", desc: "Engineered for large-scale irrigation and industrial water supply. Capable of moving massive volumes of water efficiently.", specs: ["Flow Rate: Up to 1,000,000 LPD", "Industrial grade construction", "Advanced thermal management", "Suitable for canal lifting and community water"] },
-            "rooftop": { title: "Solar Roof Top Plant", image: "Solar Roof Top Plant.jpg", desc: "Turn your unused roof space into a power generator. Reduce electricity bills significantly with our grid-tied rooftop systems.", specs: ["Net-Metering compatible", "ROI in 3-4 years", "Remote monitoring included", "25-year performance warranty on modules", "Customized structure design"] },
-            "ground": { title: "Solar Ground Mounted", image: "Solar Ground Mounted.jpg", desc: "Ideal for utility-scale power generation or large industries with available land. Optimized for maximum sun exposure.", specs: ["Scalable from kW to MW", "Robust galvanized steel structure", "High wind speed resistance (150 kmph+)", "Quick installation timeline", "Grid stability integration"] },
-            "hybrid": { title: "Solar PV Diesel Hybrid", image: "Solar PV Diesel Hybrid.jpg", desc: "Intelligent fuel saver solution that synchronizes solar power with DG sets, ensuring power availability while cutting fuel costs.", specs: ["Fuel Saving: Up to 40-60%", "Seamless switching logic", "Prevents reverse power flow to DG", "Real-time load management", "Suitable for factories and hospitals"] },
-            "pv-10-100": { title: "PV Module 10–100 Wp", image: "PV Module 10–100 Wp.jpg", desc: "Compact modules designed for small applications like street lights, home lighting systems, and portable chargers.", specs: ["High transmission tempered glass", "Anodized aluminum frame", "Excellent low light performance"] },
-            "pv-160-170": { title: "PV Module 160–170 Wp", image: "PV Module 160–170 Wp.jpg", desc: "Mid-range modules suitable for off-grid battery charging systems and small domestic setups.", specs: ["36 Cell Polycrystalline", "Robust junction box", "IEC 61215 Certified"] },
-            "pv-260-270": { title: "PV Module 260–270 Wp", image: "PV Module 260–270 Wp.jpg", desc: "Standard 60-cell modules, widely used for residential rooftop and commercial projects.", specs: ["Efficiency > 16%", "PID Resistant", "Positive power tolerance"] },
-            "pv-400": { title: "PERC PV Module 400 Wp", image: "PERC PV Module 400 Wp (High Efficiency).jpg", desc: "Cutting-edge MONO PERC technology delivering highest efficiency per square meter. Best for space-constrained areas.", specs: ["Mono-crystalline PERC cells", "Efficiency > 20%", "Reduced shading loss", "Split cell technology", "Lower temperature coefficient"] },
-            "tracker": { title: "Jain Solar Tracker", image: "Jain Solar Tracker.jpg", desc: "Mechanized structure that follows the sun's path throughout the day, significantly increasing energy generation.", specs: ["Single Axis & Dual Axis options", "Generation increase: 15-25%", "Automatic stow during high winds", "Low maintenance bearings"] },
-            "agro": { title: "Agro-Voltaic Farming", image: "Agro-Voltaic Farming.jpg", desc: "Innovative dual-use system allowing farming underneath solar panels. Optimize land use efficiency.", specs: ["Elevated structure (3m+ height)", "Specific crop compatibility", "Reduces water evaporation from soil", "Generates power for farm needs"] },
-            "floating": { title: "Floating Structures (Jain Tarang)", image: "Floating Structures.jpg", desc: "Install solar panels on water bodies like reservoirs and lakes. Conserves land and reduces water evaporation.", specs: ["HDPE Floats", "Cooling effect increases generation", "UV resistant material", "Eco-friendly design"] },
-            "proj-plant": { title: "Solar Power Plant Projects", image: "Solar PV-Power Plant Projects.jpg", desc: "Complete EPC (Engineering, Procurement, Construction) services for MW scale solar parks.", specs: ["Site Feasibility Study", "High Voltage Transmission", "Substation Automation", "O&M Services"] },
-            "proj-pump": { title: "Solar Pumping Projects", image: "Solar Pumping Projects.jpg", desc: "Implementation of government schemes (Kusum) and community water supply projects across states.", specs: ["Remote village electrification", "Drinking water schemes", "Integrated drip irrigation projects"] }
-        };
-
-        function openModal(id) {
-            const data = productData[id];
-            if(!data) return;
-            document.getElementById('modal-title').textContent = data.title;
-            document.getElementById('modal-img').src = data.image;
-            document.getElementById('modal-desc').textContent = data.desc;
-            const ul = document.getElementById('modal-specs');
-            ul.innerHTML = '';
-            data.specs.forEach(s => { let li = document.createElement('li'); li.textContent = s; ul.appendChild(li); });
-            document.getElementById('product-modal').style.display = 'block';
-            document.body.style.overflow = 'hidden';
-        }
-        function closeModal() {
-            document.getElementById('product-modal').style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-        window.onclick = function(e) { if(e.target == document.getElementById('product-modal')) closeModal(); }
-    </script>
+    <script src="script_js/product.js"></script>
 </body>
 </html>
